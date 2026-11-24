@@ -1,3 +1,4 @@
+import os
 import sys
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -23,8 +24,12 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     TEXT_LIGHT = RGBColor(255, 255, 255)
     SUCCESS_COLOR = RGBColor(16, 185, 129)
 
+    app_dir = os.path.dirname(os.path.abspath(__file__))
+    img_upload_path = os.path.join(app_dir, "screenshot_upload.png")
+    img_output_path = os.path.join(app_dir, "screenshot_output.jpg")
+
     def add_header(slide, title_text, category="EYE-TRACKING RESEARCH PORTAL"):
-        cat_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.5), Inches(11), Inches(0.35))
+        cat_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11), Inches(0.35))
         tf_cat = cat_box.text_frame
         tf_cat.word_wrap = True
         p_cat = tf_cat.paragraphs[0]
@@ -34,7 +39,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         p_cat.font.color.rgb = PRIMARY
         p_cat.font.name = "Arial"
 
-        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.8), Inches(11.5), Inches(0.8))
+        title_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.7), Inches(11.5), Inches(0.8))
         tf_t = title_box.text_frame
         tf_t.word_wrap = True
         p_t = tf_t.paragraphs[0]
@@ -64,7 +69,6 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     bg1.fill.fore_color.rgb = DARK_BG
     bg1.line.fill.background()
 
-    # Pill badge
     pill = add_card(slide1, Inches(1.0), Inches(1.1), Inches(3.8), Inches(0.45), bg_color=NAVY, border_color=PRIMARY)
     tb_pill = slide1.shapes.add_textbox(Inches(1.0), Inches(1.1), Inches(3.8), Inches(0.45))
     p_pill = tb_pill.text_frame.paragraphs[0]
@@ -74,7 +78,6 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     p_pill.font.color.rgb = PRIMARY
     p_pill.alignment = PP_ALIGN.CENTER
 
-    # Main Title
     tb_title = slide1.shapes.add_textbox(Inches(1.0), Inches(1.8), Inches(11.3), Inches(2.0))
     tf = tb_title.text_frame
     tf.word_wrap = True
@@ -90,7 +93,6 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     p2.font.bold = True
     p2.font.color.rgb = ACCENT
 
-    # Team & Supervisor Card Container
     add_card(slide1, Inches(1.0), Inches(4.2), Inches(6.2), Inches(2.6), bg_color=RGBColor(30, 41, 59), border_color=RGBColor(51, 65, 85))
     tb_team = slide1.shapes.add_textbox(Inches(1.3), Inches(4.4), Inches(5.6), Inches(2.2))
     tf_team = tb_team.text_frame
@@ -115,7 +117,6 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         pm.font.color.rgb = TEXT_LIGHT
         pm.space_after = Pt(4)
 
-    # Supervisor Card
     add_card(slide1, Inches(7.5), Inches(4.2), Inches(4.8), Inches(2.6), bg_color=RGBColor(30, 41, 59), border_color=RGBColor(51, 65, 85))
     tb_sup = slide1.shapes.add_textbox(Inches(7.8), Inches(4.4), Inches(4.2), Inches(2.2))
     tf_sup = tb_sup.text_frame
@@ -146,8 +147,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     add_header(slide2, "Problem Statement & Project Objectives")
 
     col_width = Inches(5.6)
-    add_card(slide2, Inches(0.8), Inches(1.8), col_width, Inches(5.0))
-    tb_prob = slide2.shapes.add_textbox(Inches(1.1), Inches(2.0), col_width - Inches(0.6), Inches(4.5))
+    add_card(slide2, Inches(0.8), Inches(1.6), col_width, Inches(5.3))
+    tb_prob = slide2.shapes.add_textbox(Inches(1.1), Inches(1.8), col_width - Inches(0.6), Inches(4.8))
     tf_p = tb_prob.text_frame
     tf_p.word_wrap = True
     p_ph = tf_p.paragraphs[0]
@@ -174,8 +175,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         pd.font.color.rgb = TEXT_MUTED
         pd.space_after = Pt(8)
 
-    add_card(slide2, Inches(6.8), Inches(1.8), col_width, Inches(5.0), bg_color=LIGHT_BG)
-    tb_obj = slide2.shapes.add_textbox(Inches(7.1), Inches(2.0), col_width - Inches(0.6), Inches(4.5))
+    add_card(slide2, Inches(6.8), Inches(1.6), col_width, Inches(5.3), bg_color=LIGHT_BG)
+    tb_obj = slide2.shapes.add_textbox(Inches(7.1), Inches(1.8), col_width - Inches(0.6), Inches(4.8))
     tf_o = tb_obj.text_frame
     tf_o.word_wrap = True
     p_oh = tf_o.paragraphs[0]
@@ -187,7 +188,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
 
     obj_items = [
         ("01. ASD Classification", "Accurately classify subjects as ASD or Non-ASD using eye-tracking scanpaths."),
-        ("02. Deep Feature Extraction", "Extract meaningful visual gaze features using MobileNet."),
+        ("02. Deep Feature Extraction", "Extract meaningful visual gaze representations using MobileNet."),
         ("03. Dimensionality Reduction", "Apply PCA to reduce features to 250 components, removing noise and redundancy."),
         ("04. Stacking Ensemble Learning", "Maximize accuracy via an SVM + KNN -> Logistic Regression meta-learner."),
         ("05. Clinical Web Tool & Explainability", "Deliver an accessible web portal with clear 'Why This Patient?' visual explanations.")
@@ -210,8 +211,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     slide3 = prs.slides.add_slide(blank_layout)
     add_header(slide3, "Dataset Description & Preprocessing Pipeline")
 
-    add_card(slide3, Inches(0.8), Inches(1.8), Inches(5.6), Inches(5.0))
-    tb_data = slide3.shapes.add_textbox(Inches(1.1), Inches(2.0), Inches(5.0), Inches(4.5))
+    add_card(slide3, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.3))
+    tb_data = slide3.shapes.add_textbox(Inches(1.1), Inches(1.8), Inches(5.0), Inches(4.8))
     tf_d = tb_data.text_frame
     tf_d.word_wrap = True
     p_dh = tf_d.paragraphs[0]
@@ -239,8 +240,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         pdb.font.color.rgb = TEXT_MUTED
         pdb.space_after = Pt(8)
 
-    add_card(slide3, Inches(6.8), Inches(1.8), Inches(5.7), Inches(5.0), bg_color=LIGHT_BG)
-    tb_prep = slide3.shapes.add_textbox(Inches(7.1), Inches(2.0), Inches(5.1), Inches(4.5))
+    add_card(slide3, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.3), bg_color=LIGHT_BG)
+    tb_prep = slide3.shapes.add_textbox(Inches(7.1), Inches(1.8), Inches(5.1), Inches(4.8))
     tf_pr = tb_prep.text_frame
     tf_pr.word_wrap = True
     p_prh = tf_pr.paragraphs[0]
@@ -270,69 +271,52 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         ppb.space_after = Pt(6)
 
     # ==========================================
-    # SLIDE 4: Feature Extraction & Dimensionality Reduction
+    # SLIDE 4: NEW SLIDE - FRONTEND WORKING & LIVE DEMONSTRATION WITH PHOTOS
     # ==========================================
     slide4 = prs.slides.add_slide(blank_layout)
-    add_header(slide4, "Feature Extraction (CNN) & PCA Reduction")
+    add_header(slide4, "Live System Demonstration: From Scanpath Input to Diagnostic Output", category="APPLICATION IN ACTION")
 
-    add_card(slide4, Inches(0.8), Inches(1.8), Inches(5.6), Inches(5.0))
-    tb_feat = slide4.shapes.add_textbox(Inches(1.1), Inches(2.0), Inches(5.0), Inches(4.5))
-    tf_f = tb_feat.text_frame
-    tf_f.word_wrap = True
-    p_fh = tf_f.paragraphs[0]
-    p_fh.text = "MOBILENET VS. RESNET50 COMPARISON"
-    p_fh.font.size = Pt(12)
-    p_fh.font.bold = True
-    p_fh.font.color.rgb = PRIMARY
-    p_fh.space_after = Pt(10)
+    # Left Container: Upload Stage
+    add_card(slide4, Inches(0.8), Inches(1.6), Inches(5.7), Inches(5.4))
+    tb_up = slide4.shapes.add_textbox(Inches(1.0), Inches(1.75), Inches(5.3), Inches(0.6))
+    tf_up = tb_up.text_frame
+    p_uph = tf_up.paragraphs[0]
+    p_uph.text = "STEP 1: SCANPATH INTAKE & PREVIEW"
+    p_uph.font.size = Pt(12)
+    p_uph.font.bold = True
+    p_uph.font.color.rgb = PRIMARY
 
-    comp_items = [
-        ("Architecture", "MobileNet uses Depthwise Separable Convolutions (~4M params) vs. ResNet50 (~25M params)."),
-        ("Inference Speed", "MobileNet is significantly faster and lightweight—ideal for clinical web deployment."),
-        ("Experimental Accuracy", "MobileNet achieved 92.69% accuracy vs. ResNet50's 90.12%."),
-        ("Conclusion", "MobileNet provided the best speed-to-accuracy tradeoff, making it our chosen feature extractor.")
-    ]
-    for c_h, c_b in comp_items:
-        pch = tf_f.add_paragraph()
-        pch.text = "• " + c_h + ":"
-        pch.font.size = Pt(13)
-        pch.font.bold = True
-        pch.font.color.rgb = DARK_BG
-        pcb = tf_f.add_paragraph()
-        pcb.text = "   " + c_b
-        pcb.font.size = Pt(11)
-        pcb.font.color.rgb = TEXT_MUTED
-        pcb.space_after = Pt(8)
+    if os.path.exists(img_upload_path):
+        slide4.shapes.add_picture(img_upload_path, Inches(1.0), Inches(2.2), width=Inches(5.3))
 
-    add_card(slide4, Inches(6.8), Inches(1.8), Inches(5.7), Inches(5.0), bg_color=LIGHT_BG)
-    tb_pca = slide4.shapes.add_textbox(Inches(7.1), Inches(2.0), Inches(5.1), Inches(4.5))
-    tf_pca = tb_pca.text_frame
-    tf_pca.word_wrap = True
-    p_pcah = tf_pca.paragraphs[0]
-    p_pcah.text = "PCA DIMENSIONALITY REDUCTION"
-    p_pcah.font.size = Pt(12)
-    p_pcah.font.bold = True
-    p_pcah.font.color.rgb = PRIMARY
-    p_pcah.space_after = Pt(10)
+    tb_up_txt = slide4.shapes.add_textbox(Inches(1.0), Inches(5.2), Inches(5.3), Inches(1.6))
+    tf_ut = tb_up_txt.text_frame
+    tf_ut.word_wrap = True
+    pu1 = tf_ut.paragraphs[0]
+    pu1.text = "• Clinician drags any scanpath image (PNG/JPG) or clicks 'Browse files'."
+    pu1.font.size = Pt(11)
+    pu1.font.color.rgb = TEXT_DARK
+    pu2 = tf_ut.add_paragraph()
+    pu2.text = "• The portal validates file size (28.4 KB) and generates an instant live thumbnail."
+    pu2.font.size = Pt(11)
+    pu2.font.color.rgb = TEXT_MUTED
+    pu3 = tf_ut.add_paragraph()
+    pu3.text = "• Clicking 'Run Analysis' triggers the backend ML inference pipeline asynchronously."
+    pu3.font.size = Pt(11)
+    pu3.font.color.rgb = TEXT_MUTED
 
-    pca_items = [
-        ("Target Components", "Reduced feature space from 1,024 down to 250 Principal Components."),
-        ("Variance Retained", "Retains ~95% of total variance, preserving essential visual patterns."),
-        ("Noise Removal", "Filters out redundant and correlated noise in feature space."),
-        ("Prevents Overfitting", "Substantially improves model generalization on unseen test data."),
-        ("Latency Reduction", "Dramatically cuts inference time for web application use.")
-    ]
-    for p_h, p_b in pca_items:
-        pph = tf_pca.add_paragraph()
-        pph.text = p_h
-        pph.font.size = Pt(13)
-        pph.font.bold = True
-        pph.font.color.rgb = DARK_BG
-        ppb = tf_pca.add_paragraph()
-        ppb.text = p_b
-        ppb.font.size = Pt(11)
-        ppb.font.color.rgb = TEXT_DARK
-        ppb.space_after = Pt(6)
+    # Right Container: Output Stage
+    add_card(slide4, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.4), bg_color=CARD_BG, border_color=PRIMARY)
+    tb_out = slide4.shapes.add_textbox(Inches(7.0), Inches(1.75), Inches(5.3), Inches(0.6))
+    tf_out = tb_out.text_frame
+    p_outh = tf_out.paragraphs[0]
+    p_outh.text = "STEP 2: REAL-TIME DIAGNOSTIC DASHBOARD"
+    p_outh.font.size = Pt(12)
+    p_outh.font.bold = True
+    p_outh.font.color.rgb = PRIMARY
+
+    if os.path.exists(img_output_path):
+        slide4.shapes.add_picture(img_output_path, Inches(7.0), Inches(2.2), width=Inches(5.3))
 
     # ==========================================
     # SLIDE 5: Stacking Ensemble Architecture
@@ -342,7 +326,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
 
     ens_cards = [
         ("BASE MODEL 1", "Support Vector Machine (SVM)", "RBF Kernel",
-         ["Captures complex non-linear classification boundaries in feature space.",
+         ["Constructs non-linear decision boundaries in high-dimensional feature space.",
           "Highly effective with PCA-reduced dimensions.",
           "Learns global separation margin between ASD and Non-ASD scanpaths."]),
         ("BASE MODEL 2", "K-Nearest Neighbors (KNN)", "k = 5 Neighbors",
@@ -356,8 +340,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     ]
     for i, (m_tag, m_name, m_tech, m_pts) in enumerate(ens_cards):
         ex = Inches(0.8 + i * 3.9)
-        add_card(slide5, ex, Inches(1.8), Inches(3.6), Inches(5.0))
-        tb_e = slide5.shapes.add_textbox(ex + Inches(0.2), Inches(2.0), Inches(3.2), Inches(4.5))
+        add_card(slide5, ex, Inches(1.6), Inches(3.6), Inches(5.3))
+        tb_e = slide5.shapes.add_textbox(ex + Inches(0.2), Inches(1.8), Inches(3.2), Inches(4.8))
         tf_e = tb_e.text_frame
         tf_e.word_wrap = True
         p_et = tf_e.paragraphs[0]
@@ -392,8 +376,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     slide6 = prs.slides.add_slide(blank_layout)
     add_header(slide6, "Experimental Results & Performance Comparison")
 
-    add_card(slide6, Inches(0.8), Inches(1.8), Inches(7.2), Inches(5.0))
-    tb_res = slide6.shapes.add_textbox(Inches(1.0), Inches(2.0), Inches(6.8), Inches(4.5))
+    add_card(slide6, Inches(0.8), Inches(1.6), Inches(7.2), Inches(5.3))
+    tb_res = slide6.shapes.add_textbox(Inches(1.0), Inches(1.8), Inches(6.8), Inches(4.8))
     tf_r = tb_res.text_frame
     tf_r.word_wrap = True
     p_rh = tf_r.paragraphs[0]
@@ -426,8 +410,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
             pr.font.color.rgb = TEXT_DARK
         pr.space_after = Pt(8)
 
-    add_card(slide6, Inches(8.3), Inches(1.8), Inches(4.2), Inches(5.0), bg_color=CARD_BG, border_color=PRIMARY)
-    tb_side = slide6.shapes.add_textbox(Inches(8.5), Inches(2.0), Inches(3.8), Inches(4.5))
+    add_card(slide6, Inches(8.3), Inches(1.6), Inches(4.2), Inches(5.3), bg_color=CARD_BG, border_color=PRIMARY)
+    tb_side = slide6.shapes.add_textbox(Inches(8.5), Inches(1.8), Inches(3.8), Inches(4.8))
     tf_s = tb_side.text_frame
     tf_s.word_wrap = True
     p_sh = tf_s.paragraphs[0]
@@ -456,13 +440,13 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         psb.space_after = Pt(8)
 
     # ==========================================
-    # SLIDE 7: Phase 2 Addition: Clinical Web Portal
+    # SLIDE 7: Web Application Features
     # ==========================================
     slide7 = prs.slides.add_slide(blank_layout)
     add_header(slide7, "Clinical Web Application: Translating Research to Practice")
 
-    add_card(slide7, Inches(0.8), Inches(1.8), Inches(5.6), Inches(5.0))
-    tb_web = slide7.shapes.add_textbox(Inches(1.1), Inches(2.0), Inches(5.0), Inches(4.5))
+    add_card(slide7, Inches(0.8), Inches(1.6), Inches(5.6), Inches(5.3))
+    tb_web = slide7.shapes.add_textbox(Inches(1.1), Inches(1.8), Inches(5.0), Inches(4.8))
     tf_w = tb_web.text_frame
     tf_w.word_wrap = True
     p_wh = tf_w.paragraphs[0]
@@ -490,8 +474,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         pwb.font.color.rgb = TEXT_MUTED
         pwb.space_after = Pt(8)
 
-    add_card(slide7, Inches(6.8), Inches(1.8), Inches(5.7), Inches(5.0), bg_color=LIGHT_BG)
-    tb_flow = slide7.shapes.add_textbox(Inches(7.1), Inches(2.0), Inches(5.1), Inches(4.5))
+    add_card(slide7, Inches(6.8), Inches(1.6), Inches(5.7), Inches(5.3), bg_color=LIGHT_BG)
+    tb_flow = slide7.shapes.add_textbox(Inches(7.1), Inches(1.8), Inches(5.1), Inches(4.8))
     tf_fl = tb_flow.text_frame
     tf_fl.word_wrap = True
     p_flh = tf_fl.paragraphs[0]
@@ -521,7 +505,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         psb.space_after = Pt(6)
 
     # ==========================================
-    # SLIDE 8: Explainability (Simple Words - No Jargon)
+    # SLIDE 8: Explainability (Simple Words)
     # ==========================================
     slide8 = prs.slides.add_slide(blank_layout)
     add_header(slide8, "Explainability: 'Why This Patient?' (Simple English)")
@@ -536,8 +520,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     ]
     for i, (b_tag, b_name, b_stat, b_desc) in enumerate(exp_cards):
         bx = Inches(0.8 + i * 3.9)
-        add_card(slide8, bx, Inches(1.8), Inches(3.6), Inches(5.0))
-        tb_b = slide8.shapes.add_textbox(bx + Inches(0.2), Inches(2.0), Inches(3.2), Inches(4.5))
+        add_card(slide8, bx, Inches(1.6), Inches(3.6), Inches(5.3))
+        tb_b = slide8.shapes.add_textbox(bx + Inches(0.2), Inches(1.8), Inches(3.2), Inches(4.8))
         tf_bio = tb_b.text_frame
         tf_bio.word_wrap = True
         p_btag = tf_bio.paragraphs[0]
@@ -571,7 +555,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         p_cl.font.color.rgb = TEXT_MUTED
 
     # ==========================================
-    # SLIDE 9: System Handbook & Clinician Guidelines
+    # SLIDE 9: System Handbook
     # ==========================================
     slide9 = prs.slides.add_slide(blank_layout)
     add_header(slide9, "System Handbook: Instructions for Users & Clinic Staff")
@@ -583,7 +567,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
           "Any resolution works—the server automatically standardizes sizing to 224x224."]),
         ("RELIABILITY", "Built-In Safety & Fallback", 
          ["If trained model weights are missing, the app NEVER crashes.",
-          "It automatically runs in 'simulation mode' using contour analysis to allow offline UI demonstrations.",
+          "It automatically runs in 'simulation mode' using contour analysis to allow offline demonstrations.",
           "A clear banner informs the doctor whether live weights or simulation mode is active."]),
         ("RESPONSIBILITY", "Screening Aid vs Final Diagnosis", 
          ["The portal explicitly states it is a screening assistant, not a replacement for a doctor.",
@@ -592,8 +576,8 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
     ]
     for i, (h_tag, h_title, h_points) in enumerate(hb_cards):
         hx = Inches(0.8 + i * 3.9)
-        add_card(slide9, hx, Inches(1.8), Inches(3.6), Inches(5.0))
-        tb_h = slide9.shapes.add_textbox(hx + Inches(0.2), Inches(2.0), Inches(3.2), Inches(4.5))
+        add_card(slide9, hx, Inches(1.6), Inches(3.6), Inches(5.3))
+        tb_h = slide9.shapes.add_textbox(hx + Inches(0.2), Inches(1.8), Inches(3.2), Inches(4.8))
         tf_h = tb_h.text_frame
         tf_h.word_wrap = True
         p_ht = tf_h.paragraphs[0]
@@ -617,7 +601,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
             p_p.space_after = Pt(10)
 
     # ==========================================
-    # SLIDE 10: Conclusion & Summary (Dark Theme)
+    # SLIDE 10: Conclusion (Dark Theme)
     # ==========================================
     slide10 = prs.slides.add_slide(blank_layout)
     bg10 = slide10.shapes.add_shape(MSO_SHAPE.RECTANGLE, 0, 0, prs.slide_width, prs.slide_height)
@@ -647,7 +631,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         "2. Understandable Explanations: Replaced heavy jargon with 3 intuitive visual checks (where they look, face avoidance, and jerky jumps).",
         "3. Real Working Web Portal: Built an interactive, full-stack application for doctors with instant drag-and-drop inference.",
         "4. Deployment Ready: Fully tracked on GitHub (nandini-rathod/asd-eye-tracking) with Gunicorn and configured for Render cloud hosting.",
-        "5. Future Expansion: Real-time eye-tracker integration, Vision Transformers (ViT), and multimodal fusion with EEG or handwriting."
+        "5. Future Expansion: Real-time eye-tracker integration, Vision Transformers (ViT), and multimodal fusion with EEG data."
     ]
     for rpt in recap_points:
         pr = tf_end.add_paragraph()
@@ -657,7 +641,7 @@ def create_deck(filename="ASD_EyeTracking_Presentation.pptx"):
         pr.space_after = Pt(8)
 
     prs.save(filename)
-    print(f"Presentation updated with exact first slide and accuracy results at {filename}")
+    print(f"Presentation successfully updated with photo demonstration slide at {filename}")
 
 if __name__ == "__main__":
     create_deck(sys.argv[1] if len(sys.argv) > 1 else "ASD_EyeTracking_Presentation.pptx")

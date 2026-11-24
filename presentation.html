@@ -49,7 +49,7 @@
       background: var(--card-bg);
       border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-      padding: 2.8rem 3.5rem;
+      padding: 2.6rem 3.5rem;
       position: relative;
       overflow: hidden;
       flex-direction: column;
@@ -76,7 +76,7 @@
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
       width: fit-content;
     }
     .slide.dark-theme .pill {
@@ -89,7 +89,7 @@
       font-weight: 800;
       color: var(--text-dark);
       line-height: 1.2;
-      margin-bottom: 1.3rem;
+      margin-bottom: 1.2rem;
     }
     .slide.dark-theme .slide-title {
       color: var(--text-light);
@@ -100,23 +100,17 @@
       gap: 1.5rem;
       flex: 1;
     }
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.1rem;
-      flex: 1;
-    }
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 1.8rem;
       flex: 1;
     }
     .card {
       background: var(--bg-light);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.3rem;
+      padding: 1.2rem;
       display: flex;
       flex-direction: column;
     }
@@ -197,6 +191,13 @@
       background: var(--primary);
       border-color: var(--primary);
     }
+    .demo-img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      object-fit: contain;
+    }
     @media print {
       body { background: white; overflow: visible; }
       .controls { display: none; }
@@ -268,7 +269,7 @@
             <li><strong>02. CNN Feature Extraction</strong>: Extract meaningful visual gaze representations using MobileNet.</li>
             <li><strong>03. Dimensionality Reduction</strong>: Apply PCA to reduce features to 250 components, eliminating noise.</li>
             <li><strong>04. Ensemble Learning</strong>: Maximize accuracy using Stacking (SVM + KNN &rarr; Logistic Regression).</li>
-            <li><strong>05. Clinical Web Portal</strong>: Deliver an interactive app with clear visual explanations.</li>
+            <li><strong>05. Clinical Web Tool & Explainability</strong>: Deliver an accessible web portal with clear visual explanations.</li>
           </ul>
         </div>
       </div>
@@ -302,28 +303,34 @@
       </div>
     </div>
 
-    <!-- SLIDE 4: FEATURE EXTRACTION & PCA -->
+    <!-- SLIDE 4: NEW SLIDE - FRONTEND WORKING WITH REAL PHOTOS -->
     <div class="slide">
-      <div class="pill">Feature Engineering</div>
-      <h2 class="slide-title">Feature Extraction (CNN) & PCA Reduction</h2>
+      <div class="pill" style="background: #eef2ff; color: var(--primary);">Application in Action</div>
+      <h2 class="slide-title">Live System Demonstration: From Scanpath Input to Diagnostic Output</h2>
       
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title">MobileNet vs. ResNet50</div>
-          <ul class="card-list">
-            <li><strong>MobileNet Architecture</strong>: Uses Depthwise Separable Convolutions (~4 Million parameters) vs ResNet50 (~25 Million parameters).</li>
-            <li><strong>Higher Accuracy</strong>: MobileNet achieved <strong>92.69%</strong> accuracy vs. ResNet50's 90.12%.</li>
-            <li><strong>Computationally Efficient</strong>: 6x smaller model size, runs significantly faster on clinical web and edge devices.</li>
-            <li><strong>Preferred Model</strong>: MobileNet delivered the best speed-to-accuracy tradeoff.</li>
+        <!-- Input Card -->
+        <div class="card" style="display: flex; flex-direction: column;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 0.4rem;">
+            STEP 1: SCANPATH INTAKE & PREVIEW
+          </div>
+          <img src="screenshot_upload.png" alt="Scanpath Intake Screen" class="demo-img" style="margin-bottom: 0.8rem; max-height: 220px;" />
+          <ul class="card-list" style="font-size: 0.85rem;">
+            <li>Clinician drags any scanpath image (PNG/JPG) or clicks <strong>"Browse files"</strong>.</li>
+            <li>The portal validates file size (28.4 KB) and generates an instant live thumbnail.</li>
+            <li>Clicking <strong>"Run Analysis"</strong> sends the image to the backend ML inference engine.</li>
           </ul>
         </div>
-        <div class="card">
-          <div class="card-title">PCA — Dimensionality Reduction</div>
-          <ul class="card-list">
-            <li><strong>Target Components</strong>: Reduced thousands of raw features down to 250 Principal Components.</li>
-            <li><strong>Variance Retained</strong>: Preserves ~95% of total variance while eliminating redundant noise.</li>
-            <li><strong>Prevents Overfitting</strong>: Balances information retention with high generalization capability.</li>
-            <li><strong>Cutoff Efficiency</strong>: Lowers memory and compute requirements for real-time web screening.</li>
+
+        <!-- Output Card -->
+        <div class="card" style="display: flex; flex-direction: column; background: #ffffff; border-color: var(--primary);">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 0.4rem;">
+            STEP 2: REAL-TIME DIAGNOSTIC DASHBOARD
+          </div>
+          <img src="screenshot_output.jpg" alt="Diagnostic Dashboard Output" class="demo-img" style="margin-bottom: 0.6rem; max-height: 270px;" />
+          <ul class="card-list" style="font-size: 0.85rem;">
+            <li><strong>Immediate Outcome</strong>: Displays <em>"Neurotypical Visual Pattern"</em> with 64.1% confidence.</li>
+            <li><strong>Explainable Reasons</strong>: 3 cards detail Holistic Visual Exploration, Stable Triadic Gaze, and Saccadic Continuity.</li>
           </ul>
         </div>
       </div>
@@ -332,7 +339,7 @@
     <!-- SLIDE 5: STACKING ENSEMBLE -->
     <div class="slide">
       <div class="pill">Ensemble Learning</div>
-      <h2 class="slide-title">Stacking Ensemble Model Architecture</h2>
+      <h2 class="slide-title">Stacking Ensemble Learning Architecture</h2>
       
       <div class="grid-3">
         <div class="card">
