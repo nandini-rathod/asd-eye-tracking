@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ASD Diagnosis via Eye-Tracking Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    :root {
+      --indigo: #6366f1;
+      --purple: #8b5cf6;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --card: #ffffff;
+      --bg: #f3f5fb;
+      --high: #e11d48;
+      --medium: #d97706;
+      --low: #059669;
+      --shadow: 0 18px 50px rgba(79, 70, 229, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(99, 102, 241, 0.16), transparent 55%),
+        radial-gradient(900px 400px at 100% 0%, rgba(139, 92, 246, 0.14), transparent 50%),
+        var(--bg);
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 64px; }
+
+    header.hero {
+      background: linear-gradient(135deg, var(--indigo), var(--purple));
+      color: white;
+      border-radius: 28px;
+      padding: 36px 36px 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      width: 280px; height: 280px;
+      right: -60px; top: -80px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(255,255,255,0.16);
+      border-radius: 999px; padding: 6px 12px; font-weight: 600;
+    }
+    header.hero h1 { margin: 14px 0 8px; font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.03em; position: relative; }
+    header.hero p { margin: 0; max-width: 640px; color: rgba(255,255,255,0.88); line-height: 1.55; position: relative; }
+    .steps { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; position: relative; }
+    .steps span {
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 500;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.8);
+      padding: 24px;
+      margin-top: 22px;
+    }
+
+    .drop {
+      border: 1.5px dashed #c7d2fe;
+      background: linear-gradient(180deg, #f8f8ff, #ffffff);
+      border-radius: 20px;
+      min-height: 220px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 28px 16px; cursor: pointer;
+      transition: border-color .2s, transform .2s, background .2s;
+    }
+    .drop:hover, .drop.drag { border-color: var(--indigo); background: #eef2ff; transform: translateY(-1px); }
+    .drop i.fa-cloud-arrow-up { font-size: 36px; color: var(--indigo); }
+    .drop h2 { margin: 12px 0 4px; font-size: 18px; }
+    .drop p { margin: 0; color: var(--muted); font-size: 14px; }
+    .browse {
+      margin-top: 14px; border: 0; background: white; color: var(--indigo);
+      border-radius: 999px; padding: 8px 14px; font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(99,102,241,0.15);
+    }
+    input[type="file"] { display: none; }
+
+    .preview-row {
+      display: none; gap: 18px; align-items: center; margin-top: 18px;
+    }
+    .preview-row.show { display: flex; }
+    .preview-row img {
+      width: 148px; height: 148px; object-fit: cover; border-radius: 16px;
+      border: 1px solid var(--line); background: #0f172a;
+    }
+    .file-meta { color: var(--muted); font-size: 14px; }
+    .file-meta strong { color: var(--ink); display: block; margin-bottom: 4px; }
+
+    .actions { display: flex; justify-content: flex-end; margin-top: 18px; }
+    #analyzeBtn {
+      border: 0; cursor: pointer; color: white; font-weight: 600; font-size: 15px;
+      background: linear-gradient(135deg, var(--indigo), var(--purple));
+      border-radius: 14px; padding: 14px 22px; min-width: 210px;
+      box-shadow: 0 10px 24px rgba(99, 102, 241, 0.35);
+    }
+    #analyzeBtn:disabled { opacity: 0.45; cursor: not-allowed; box-shadow: none; }
+    #analyzeBtn .spin { display: none; }
+    #analyzeBtn.loading .label { display: none; }
+    #analyzeBtn.loading .spin { display: inline-flex; align-items: center; gap: 8px; }
+
+    .error {
+      display: none; margin-top: 14px; background: #fff1f2; color: #9f1239;
+      border-radius: 12px; padding: 12px 14px; font-size: 14px;
+    }
+    .error.show { display: block; }
+
+    #results { display: none; }
+    #results.show { display: block; }
+
+    .status-row { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border-radius: 999px; padding: 8px 14px; font-weight: 700; font-size: 14px; color: white;
+    }
+    .badge.asd { background: linear-gradient(135deg, #7c3aed, #e11d48); }
+    .badge.nt { background: linear-gradient(135deg, #059669, #10b981); }
+    .mode-chip {
+      font-size: 12px; font-weight: 600; color: #6d28d9; background: #f5f3ff;
+      border-radius: 999px; padding: 6px 10px;
+    }
+
+    .meter { margin-top: 18px; }
+    .meter-top { display: flex; justify-content: space-between; font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+    .meter-top strong { color: var(--ink); font-size: 18px; }
+    .track { height: 12px; background: #eef2ff; border-radius: 999px; overflow: hidden; }
+    .fill {
+      height: 100%; width: 0; border-radius: 999px;
+      background: linear-gradient(90deg, var(--indigo), var(--purple));
+      transition: width 0.8s ease;
+    }
+    .fill.nt { background: linear-gradient(90deg, #059669, #34d399); }
+
+    .summary {
+      margin-top: 18px; background: #f8f7ff; border-left: 4px solid var(--purple);
+      border-radius: 14px; padding: 16px 16px 16px 18px;
+    }
+    .summary h3 { margin: 0 0 6px; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+    .summary p { margin: 0; color: #334155; line-height: 1.55; }
+
+    .notice {
+      display: none; margin-top: 14px; background: #fffbeb; color: #92400e;
+      border-radius: 12px; padding: 12px 14px; font-size: 13px; line-height: 1.5;
+    }
+    .notice.show { display: block; }
+
+    h2.section { margin: 26px 0 12px; font-size: 18px; }
+    .factors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .factor {
+      border: 1px solid var(--line); border-radius: 18px; padding: 16px; background: #fff;
+    }
+    .factor .icon {
+      width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center;
+      background: #eef2ff; color: var(--indigo); margin-bottom: 10px;
+    }
+    .factor h3 { margin: 0 0 8px; font-size: 15px; }
+    .tag { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 999px; padding: 4px 8px; margin-bottom: 8px; }
+    .tag.high { background: #ffe4e6; color: var(--high); }
+    .tag.medium { background: #fef3c7; color: var(--medium); }
+    .tag.low { background: #d1fae5; color: var(--low); }
+    .factor p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+
+    .pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .pill {
+      background: white; border: 1px solid var(--line); border-radius: 14px;
+      padding: 10px 14px; min-width: 180px;
+    }
+    .pill span { display: block; color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+    .pill strong { font-size: 15px; }
+
+    .recommend {
+      margin-top: 16px; display: flex; gap: 10px; align-items: flex-start;
+      background: #f8fafc; border-radius: 14px; padding: 14px; color: #334155; font-size: 14px; line-height: 1.5;
+    }
+
+    .disclaimer {
+      margin-top: 22px; background: #0f172a; color: #e2e8f0;
+      border-radius: 18px; padding: 16px 18px; font-size: 13px; line-height: 1.55;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .disclaimer i { color: #fbbf24; margin-top: 2px; }
+
+    @media (max-width: 800px) {
+      header.hero { padding: 26px 20px; }
+      .factors { grid-template-columns: 1fr; }
+      .preview-row.show { flex-direction: column; align-items: flex-start; }
+      .actions { justify-content: stretch; }
+      #analyzeBtn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow"><i class="fa-solid fa-eye"></i> Eye-tracking research portal</div>
+      <h1>ASD Diagnosis via Eye-Tracking Analysis</h1>
+      <p>Upload a visual scanpath rendering. The workspace reads fixation dispersion, social-salience dwell, and saccadic structure, then reports a screening pattern with the reasoning behind it.</p>
+      <div class="steps">
+        <span>1 · Preprocess 224²</span>
+        <span>2 · MobileNet 1024-D</span>
+        <span>3 · PCA → 250</span>
+        <span>4 · SVM + KNN stack</span>
+      </div>
+    </header>
+
+    <section class="card" aria-label="Upload scanpath">
+      <div id="drop" class="drop" tabindex="0" role="button" aria-label="Upload scanpath image">
+        <i class="fa-solid fa-cloud-arrow-up"></i>
+        <h2>Drop a scanpath image</h2>
+        <p>PNG or JPG. Gaze traces, heat overlays, and plotted scanpaths all work.</p>
+        <button type="button" class="browse" id="browseBtn">Browse files</button>
+      </div>
+      <input id="fileInput" type="file" accept="image/png,image/jpeg" />
+
+      <div id="previewRow" class="preview-row">
+        <img id="preview" alt="Selected scanpath preview" />
+        <div class="file-meta">
+          <strong id="fileName">scanpath.png</strong>
+          <span id="fileSize"></span>
+        </div>
+      </div>
+
+      <div id="error" class="error" role="alert"></div>
+
+      <div class="actions">
+        <button id="analyzeBtn" type="button" disabled>
+          <span class="label"><i class="fa-solid fa-microscope"></i> Run Analysis</span>
+          <span class="spin"><i class="fa-solid fa-circle-notch fa-spin"></i> Analyzing scanpath…</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="results" class="card" aria-live="polite">
+      <div class="status-row">
+        <div>
+          <div id="badge" class="badge nt"><i class="fa-solid fa-circle-check"></i> <span id="badgeText">Neurotypical Pattern</span></div>
+          <h2 id="predictionLabel" style="margin: 12px 0 0; font-size: 22px; letter-spacing: -0.02em;">Neurotypical Visual Pattern</h2>
+        </div>
+        <div id="modeChip" class="mode-chip">Pipeline</div>
+      </div>
+
+      <div class="meter">
+        <div class="meter-top">
+          <span>Confidence in this pattern</span>
+          <strong id="confidenceText">0%</strong>
+        </div>
+        <div class="track" aria-hidden="true"><div id="meterFill" class="fill"></div></div>
+        <p id="probLine" style="margin: 8px 0 0; color: var(--muted); font-size: 13px;"></p>
+      </div>
+
+      <div class="summary">
+        <h3><i class="fa-solid fa-notes-medical"></i> Clinical summary</h3>
+        <p id="summaryText"></p>
+      </div>
+      <div id="notice" class="notice"></div>
+
+      <h2 class="section">Why This Patient?</h2>
+      <div class="factors" id="factors"></div>
+
+      <div class="pills" id="pills"></div>
+
+      <div class="recommend">
+        <i class="fa-solid fa-stethoscope" style="color: var(--indigo); margin-top: 2px;"></i>
+        <div><strong>Recommendation. </strong><span id="recommendText"></span></div>
+      </div>
+    </section>
+
+    <footer class="disclaimer">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <div>
+        <strong>Clinical disclaimer.</strong>
+        This portal is a research screening aid for eye-tracking scanpath patterns. It is not a medical device, does not diagnose autism spectrum disorder, and does not replace clinician judgment or the ADOS-2 protocol. Do not use the result as the sole basis for a clinical decision. When trained weights are absent, scores come from image-contour simulation and must not be treated as model output.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const drop = document.getElementById("drop");
+    const fileInput = document.getElementById("fileInput");
+    const browseBtn = document.getElementById("browseBtn");
+    const previewRow = document.getElementById("previewRow");
+    const preview = document.getElementById("preview");
+    const fileName = document.getElementById("fileName");
+    const fileSize = document.getElementById("fileSize");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const errorBox = document.getElementById("error");
+    const results = document.getElementById("results");
+
+    let selected = null;
+    let previewUrl = null;
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.classList.add("show");
+    }
+    function clearError() {
+      errorBox.textContent = "";
+      errorBox.classList.remove("show");
+    }
+
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    function setFile(file) {
+      if (!file) return;
+      const ok = ["image/png", "image/jpeg"].includes(file.type) || /\.(png|jpe?g)$/i.test(file.name);
+      if (!ok) {
+        showError("Only PNG and JPG scanpath images are accepted.");
+        return;
+      }
+      clearError();
+      selected = file;
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      previewUrl = URL.createObjectURL(file);
+      preview.src = previewUrl;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatBytes(file.size);
+      previewRow.classList.add("show");
+      analyzeBtn.disabled = false;
+      results.classList.remove("show");
+    }
+
+    browseBtn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      fileInput.click();
+    });
+    drop.addEventListener("click", () => fileInput.click());
+    drop.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        fileInput.click();
+      }
+    });
+    fileInput.addEventListener("change", () => setFile(fileInput.files[0]));
+
+    ["dragenter", "dragover"].forEach((name) => {
+      drop.addEventListener(name, (event) => {
+        event.preventDefault();
+        drop.classList.add("drag");
+      });
+    });
+    ["dragleave", "drop"].forEach((name) => {
+      drop.addEventListener(name, (event) => {
+        event.preventDefault();
+        drop.classList.remove("drag");
+      });
+    });
+    drop.addEventListener("drop", (event) => {
+      setFile(event.dataTransfer.files[0]);
+    });
+
+    function factorIcon(title) {
+      const text = title.toLowerCase();
+      if (text.includes("saccad")) return "fa-route";
+      if (text.includes("salience") || text.includes("triadic") || text.includes("gaze")) return "fa-users-viewfinder";
+      return "fa-bullseye";
+    }
+
+    function render(data) {
+      const asd = Boolean(data.has_asd);
+      const badge = document.getElementById("badge");
+      badge.className = "badge " + (asd ? "asd" : "nt");
+      badge.innerHTML = asd
+        ? '<i class="fa-solid fa-triangle-exclamation"></i> <span>ASD Pattern Indicated</span>'
+        : '<i class="fa-solid fa-circle-check"></i> <span>Neurotypical Pattern</span>';
+
+      document.getElementById("predictionLabel").textContent = data.prediction_label;
+      document.getElementById("modeChip").textContent = data.pipeline_mode === "model"
+        ? "MobileNet + stacking model"
+        : "Contour simulation";
+
+      const fill = document.getElementById("meterFill");
+      fill.className = "fill" + (asd ? "" : " nt");
+      fill.style.width = "0%";
+      document.getElementById("confidenceText").textContent = data.confidence.toFixed(1) + "%";
+      document.getElementById("probLine").textContent =
+        "P(ASD pattern) = " + Number(data.probability).toFixed(3);
+      requestAnimationFrame(() => {
+        fill.style.width = Math.max(0, Math.min(100, data.confidence)) + "%";
+      });
+
+      document.getElementById("summaryText").textContent = data.clinical_summary;
+      const notice = document.getElementById("notice");
+      if (data.notice) {
+        notice.textContent = data.notice;
+        notice.classList.add("show");
+      } else {
+        notice.textContent = "";
+        notice.classList.remove("show");
+      }
+
+      const factors = document.getElementById("factors");
+      factors.innerHTML = "";
+      (data.explainability.key_factors || []).forEach((factor) => {
+        const card = document.createElement("article");
+        card.className = "factor";
+        const severity = ["high", "medium", "low"].includes(factor.severity) ? factor.severity : "medium";
+        card.innerHTML =
+          '<div class="icon"><i class="fa-solid ' + factorIcon(factor.title) + '"></i></div>' +
+          "<h3></h3>" +
+          '<div class="tag ' + severity + '"></div>' +
+          "<p></p>";
+        card.querySelector("h3").textContent = factor.title;
+        card.querySelector(".tag").textContent = factor.status + " · " + severity;
+        card.querySelector("p").textContent = factor.description;
+        factors.appendChild(card);
+      });
+
+      const metrics = data.explainability.metrics || {};
+      const labels = {
+        fixation_dwell_ratio: "Fixation dwell ratio",
+        scanpath_tortuosity: "Scanpath tortuosity",
+        visual_entropy: "Visual entropy"
+      };
+      const pills = document.getElementById("pills");
+      pills.innerHTML = "";
+      Object.keys(labels).forEach((key) => {
+        const pill = document.createElement("div");
+        pill.className = "pill";
+        const span = document.createElement("span");
+        span.textContent = labels[key];
+        const strong = document.createElement("strong");
+        strong.textContent = metrics[key] || "—";
+        pill.appendChild(span);
+        pill.appendChild(strong);
+        pills.appendChild(pill);
+      });
+
+      document.getElementById("recommendText").textContent = data.explainability.recommendation || "";
+      results.classList.add("show");
+      results.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    analyzeBtn.addEventListener("click", async () => {
+      if (!selected) return;
+      clearError();
+      analyzeBtn.disabled = true;
+      analyzeBtn.classList.add("loading");
+      try {
+        const body = new FormData();
+        body.append("file", selected);
+        const response = await fetch("/upload", { method: "POST", body });
+        const data = await response.json();
+        if (!response.ok) {
+          showError(data.error || "Analysis failed.");
+          return;
+        }
+        render(data);
+      } catch (err) {
+        showError("The analysis service could not be reached.");
+      } finally {
+        analyzeBtn.classList.remove("loading");
+        analyzeBtn.disabled = !selected;
+      }
+    });
+  </script>
+</body>
+</html>
