@@ -303,40 +303,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 4: NEW SLIDE - FRONTEND WORKING WITH REAL PHOTOS -->
-    <div class="slide">
-      <div class="pill" style="background: #eef2ff; color: var(--primary);">Application in Action</div>
-      <h2 class="slide-title">Live System Demonstration: From Scanpath Input to Diagnostic Output</h2>
-      
-      <div class="grid-2">
-        <!-- Input Card -->
-        <div class="card" style="display: flex; flex-direction: column;">
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 0.4rem;">
-            STEP 1: SCANPATH INTAKE & PREVIEW
-          </div>
-          <img src="screenshot_upload.png" alt="Scanpath Intake Screen" class="demo-img" style="margin-bottom: 0.8rem; max-height: 220px;" />
-          <ul class="card-list" style="font-size: 0.85rem;">
-            <li>Clinician drags any scanpath image (PNG/JPG) or clicks <strong>"Browse files"</strong>.</li>
-            <li>The portal validates file size (28.4 KB) and generates an instant live thumbnail.</li>
-            <li>Clicking <strong>"Run Analysis"</strong> sends the image to the backend ML inference engine.</li>
-          </ul>
-        </div>
-
-        <!-- Output Card -->
-        <div class="card" style="display: flex; flex-direction: column; background: #ffffff; border-color: var(--primary);">
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 0.4rem;">
-            STEP 2: REAL-TIME DIAGNOSTIC DASHBOARD
-          </div>
-          <img src="screenshot_output.jpg" alt="Diagnostic Dashboard Output" class="demo-img" style="margin-bottom: 0.6rem; max-height: 270px;" />
-          <ul class="card-list" style="font-size: 0.85rem;">
-            <li><strong>Immediate Outcome</strong>: Displays <em>"Neurotypical Visual Pattern"</em> with 64.1% confidence.</li>
-            <li><strong>Explainable Reasons</strong>: 3 cards detail Holistic Visual Exploration, Stable Triadic Gaze, and Saccadic Continuity.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 5: STACKING ENSEMBLE -->
+    <!-- SLIDE 4: STACKING ENSEMBLE -->
     <div class="slide">
       <div class="pill">Ensemble Learning</div>
       <h2 class="slide-title">Stacking Ensemble Learning Architecture</h2>
@@ -375,7 +342,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 6: RESULTS TABLE -->
+    <!-- SLIDE 5: RESULTS TABLE -->
     <div class="slide">
       <div class="pill">Performance Metrics</div>
       <h2 class="slide-title">Results & Performance Comparison</h2>
@@ -448,7 +415,7 @@
       </div>
     </div>
 
-    <!-- SLIDE 7: WEB APPLICATION -->
+    <!-- SLIDE 6: THE WEB APPLICATION: RESEARCH TO CLINICAL PRACTICE -->
     <div class="slide">
       <div class="pill">Clinical Translation</div>
       <h2 class="slide-title">The Web Application: Research to Clinical Practice</h2>
@@ -471,6 +438,39 @@
             <li><strong>3. Instant Status Badge</strong>: Displays "ASD Pattern Indicated" or "Neurotypical Pattern".</li>
             <li><strong>4. Confidence Gauge</strong>: Shows exact probability percentage with animated meter.</li>
             <li><strong>5. Visual Reasoning</strong>: Reveals 3 clear clinical explanation cards.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: LIVE SYSTEM DEMONSTRATION (NOW DIRECTLY AFTER SLIDE 6!) -->
+    <div class="slide">
+      <div class="pill" style="background: #eef2ff; color: var(--primary);">Application in Action</div>
+      <h2 class="slide-title">Live System Demonstration: From Scanpath Input to Diagnostic Output</h2>
+      
+      <div class="grid-2">
+        <!-- Input Card -->
+        <div class="card" style="display: flex; flex-direction: column;">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 0.4rem;">
+            STEP 1: SCANPATH INTAKE & PREVIEW
+          </div>
+          <img src="screenshot_upload.png" alt="Scanpath Intake Screen" class="demo-img" style="margin-bottom: 0.8rem; max-height: 220px;" />
+          <ul class="card-list" style="font-size: 0.85rem;">
+            <li>Clinician drags any scanpath image (PNG/JPG) or clicks <strong>"Browse files"</strong>.</li>
+            <li>The portal validates file size (28.4 KB) and generates an instant live thumbnail.</li>
+            <li>Clicking <strong>"Run Analysis"</strong> sends the image to the backend ML inference engine.</li>
+          </ul>
+        </div>
+
+        <!-- Output Card -->
+        <div class="card" style="display: flex; flex-direction: column; background: #ffffff; border-color: var(--primary);">
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 0.4rem;">
+            STEP 2: REAL-TIME DIAGNOSTIC DASHBOARD
+          </div>
+          <img src="screenshot_output.jpg" alt="Diagnostic Dashboard Output" class="demo-img" style="margin-bottom: 0.6rem; max-height: 270px;" />
+          <ul class="card-list" style="font-size: 0.85rem;">
+            <li><strong>Immediate Outcome</strong>: Displays <em>"Neurotypical Visual Pattern"</em> with 64.1% confidence.</li>
+            <li><strong>Explainable Reasons</strong>: 3 cards detail Holistic Visual Exploration, Stable Triadic Gaze, and Saccadic Continuity.</li>
           </ul>
         </div>
       </div>
@@ -621,7 +621,7 @@
       }
     }
 
-    function prevSlide() {
+    prevSlide = function() {
       if (currentSlide > 0) {
         currentSlide--;
         showSlide(currentSlide);
