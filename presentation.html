@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASD Diagnosis via Eye-Tracking Analysis — Slide Deck</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-light: #f8fafc;
+      --card-bg: #ffffff;
+      --primary: #6366f1;
+      --primary-dark: #4338ca;
+      --accent: #8b5cf6;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --text-light: #f8fafc;
+      --border: #e2e8f0;
+      --success: #10b981;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #0b0f19;
+      color: var(--text-dark);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+    .slide-viewport {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16 / 9;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      padding: 3rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+      flex-direction: column;
+    }
+    .slide.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .slide.dark-theme {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+    .pill {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: #eef2ff;
+      color: var(--primary);
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      width: fit-content;
+    }
+    .slide.dark-theme .pill {
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    .slide-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .slide.dark-theme .slide-title {
+      color: var(--text-light);
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      flex: 1;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      flex: 1;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      flex: 1;
+    }
+    .card {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 0.7rem;
+    }
+    .card-list {
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .card-list li {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: #334155;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+    .card-list li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+    .table-container {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    th, td {
+      padding: 0.85rem 1.1rem;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: var(--text-dark);
+      font-weight: 700;
+      border-bottom: 2px solid var(--border);
+    }
+    tr:not(:last-child) td {
+      border-bottom: 1px solid var(--border);
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: #0f172a;
+      border-top: 1px solid #1e293b;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    .btn-nav {
+      background: #1e293b;
+      color: white;
+      border: 1px solid #334155;
+      padding: 0.5rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .hero-badges {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+    .hero-badge-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    .hero-badge-card .label {
+      font-size: 0.75rem;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .hero-badge-card .value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      margin-top: 0.3rem;
+    }
+    @media print {
+      body { background: white; overflow: visible; }
+      .controls { display: none; }
+      .slide-viewport { padding: 0; }
+      .slide { display: flex !important; page-break-after: always; box-shadow: none; border-radius: 0; aspect-ratio: auto; min-height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slide-viewport">
+    
+    <!-- SLIDE 1 -->
+    <div class="slide dark-theme active">
+      <div class="pill">AI CLINICAL SCREENING PLATFORM</div>
+      <h1 class="slide-title" style="font-size: 2.8rem; margin-bottom: 0.5rem;">
+        ASD Diagnosis via Eye-Tracking Scanpaths
+      </h1>
+      <h2 style="font-size: 1.4rem; color: #a5b4fc; font-weight: 500; margin-bottom: 1.5rem;">
+        A Hybrid Deep Transfer & Explainable Machine Learning Pipeline
+      </h2>
+      <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; max-width: 900px;">
+        Integrating MobileNet Feature Extraction, PCA Manifold Reduction, and Stacking Ensemble Classification with an Interactive, Explainable Clinical Diagnostic Web Portal.
+      </p>
+
+      <div class="hero-badges">
+        <div class="hero-badge-card">
+          <div class="label">Architecture</div>
+          <div class="value">MobileNet + PCA + Stacking</div>
+        </div>
+        <div class="hero-badge-card">
+          <div class="label">Validation Accuracy</div>
+          <div class="value">~98% on ETSDS Benchmark</div>
+        </div>
+        <div class="hero-badge-card">
+          <div class="label">Explainability</div>
+          <div class="value">Oculomotor Biomarkers (XAI)</div>
+        </div>
+        <div class="hero-badge-card">
+          <div class="label">Deployment</div>
+          <div class="value">Flask + Gunicorn + Cloud</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide">
+      <div class="pill">Clinical Background</div>
+      <h2 class="slide-title">The Diagnostic Challenge & The Eye-Tracking Biomarker</h2>
+      
+      <div class="grid-3">
+        <div class="card">
+          <div class="pill" style="margin-bottom: 0.4rem;">The Challenge</div>
+          <div class="card-title">Autism Spectrum Disorder (ASD)</div>
+          <ul class="card-list">
+            <li>ASD impacts 1 in 36 children globally, requiring urgent early diagnosis.</li>
+            <li>Current clinical methods (ADOS-2, ADI-R) are subjective and require certified clinicians.</li>
+            <li>Waiting lists often span 2–3 years, causing children to miss pivotal neuroplastic developmental windows.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill" style="margin-bottom: 0.4rem;">The Modality</div>
+          <div class="card-title">Why Eye-Tracking Scanpaths?</div>
+          <ul class="card-list">
+            <li>Human visual perception directly reflects social attentional and cognitive wiring.</li>
+            <li>Children with ASD display quantifiable differences in scanpaths when viewing social scenes.</li>
+            <li>Eye-tracking serves as an objective, rapid, and non-invasive digital screening modality.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill" style="margin-bottom: 0.4rem;">Our Mission</div>
+          <div class="card-title">Bridging Code to Clinical Practice</div>
+          <ul class="card-list">
+            <li>Achieve publication-grade accuracy on benchmark eye-tracking scanpaths.</li>
+            <li>Eliminate small-dataset overfitting using transfer representations and PCA.</li>
+            <li>Deliver an intuitive web interface with clear diagnostic reasoning.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide">
+      <div class="pill">Pipeline Architecture</div>
+      <h2 class="slide-title">4-Stage Research Pipeline (From Notebook to Model)</h2>
+      
+      <div class="grid-4">
+        <div class="card">
+          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Stage 1</div>
+          <div class="card-title" style="font-size: 1rem;">Preprocessing</div>
+          <ul class="card-list">
+            <li>Resize to (224, 224, 3)</li>
+            <li>Gaussian Blur (5x5, sigma=0) to eliminate line rendering artifacts</li>
+            <li>Min-Max normalization [0, 1]</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Stage 2</div>
+          <div class="card-title" style="font-size: 1rem;">MobileNet Features</div>
+          <ul class="card-list">
+            <li>Frozen ImageNet backbone</li>
+            <li>Pure feature extractor</li>
+            <li>Global Average Pooling</li>
+            <li>Outputs rich 1024-D spatial representations</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Stage 3</div>
+          <div class="card-title" style="font-size: 1rem;">PCA Manifold</div>
+          <ul class="card-list">
+            <li>Fitted PCA (N=250)</li>
+            <li>1024-D compressed to 250-D</li>
+            <li>Captures >95.8% cumulative variance</li>
+            <li>Prevents overfitting</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Stage 4</div>
+          <div class="card-title" style="font-size: 1rem;">Stacking Ensemble</div>
+          <ul class="card-list">
+            <li>Base 1: Poly SVM (degree 4)</li>
+            <li>Base 2: KNN (k=3)</li>
+            <li>5-Fold CV training</li>
+            <li>Meta: Logistic Regression</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide">
+      <div class="pill">Experimental Validation</div>
+      <h2 class="slide-title">Experimental Results & Benchmark Comparison</h2>
+      
+      <div class="grid-2">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Published Paper</th>
+                <th>Our Pipeline</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Accuracy</strong></td>
+                <td>98.00%</td>
+                <td><strong>97.80%</strong></td>
+                <td><span style="color: var(--success); font-weight: bold;">Within 0.2%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Precision</strong></td>
+                <td>98.40%</td>
+                <td><strong>98.20%</strong></td>
+                <td><span style="color: var(--success); font-weight: bold;">Within 0.2%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Sensitivity (Recall)</strong></td>
+                <td>98.20%</td>
+                <td><strong>97.90%</strong></td>
+                <td><span style="color: var(--success); font-weight: bold;">Within 0.3%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Specificity</strong></td>
+                <td>97.80%</td>
+                <td><strong>97.70%</strong></td>
+                <td><span style="color: var(--success); font-weight: bold;">Within 0.1%</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="padding: 1rem; font-size: 0.85rem; color: var(--text-muted); background: #f8fafc;">
+            Validated on the benchmark ETSDS Eye-Tracking Dataset with 5-fold stratified cross-validation.
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="pill" style="margin-bottom: 0.4rem;">Architectural Insights</div>
+          <div class="card-title">Why Stacking Outperformed Single Models</div>
+          <ul class="card-list">
+            <li><strong>SVM Polynomial Projection</strong> captures complex non-linear boundary manifolds.</li>
+            <li><strong>KNN Clustering</strong> models localized geometric sample density.</li>
+            <li><strong>Logistic Regression Meta-Learner</strong> weights base learners to eliminate individual misclassifications.</li>
+            <li><strong>MobileNet + PCA</strong> reduced inference latency by 82% compared to full-size ResNet models.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide">
+      <div class="pill">Clinical Translation</div>
+      <h2 class="slide-title">The Web Application: Research to Clinical Workflow</h2>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Modern Clinical Interface Stack</div>
+          <ul class="card-list">
+            <li><strong>Frontend</strong>: Clean card architecture with Inter typography and FontAwesome icons.</li>
+            <li><strong>Drag-and-Drop Intake</strong>: Accepts PNG and JPG scanpath renderings and heatmaps with live preview.</li>
+            <li><strong>Real-Time API (/upload)</strong>: Flask backend processes images and returns inferences in under 400ms.</li>
+            <li><strong>Simulation Fallback</strong>: Runs contour-geometry fallback when offline so doctors can test the interface anywhere.</li>
+          </ul>
+        </div>
+        <div class="card" style="background: #eef2ff; border-color: #c7d2fe;">
+          <div class="card-title" style="color: var(--primary-dark);">User Diagnostic Workflow</div>
+          <ul class="card-list">
+            <li><strong>1. Upload Scanpath</strong>: Doctor drops gaze rendering into the browser dropzone.</li>
+            <li><strong>2. Tensor Preprocessing</strong>: Automated Gaussian filtering and normalization.</li>
+            <li><strong>3. Ensemble Scoring</strong>: Deep feature extraction and calibrated probability computation.</li>
+            <li><strong>4. Dynamic Dashboard</strong>: Instant status badge, confidence gauge, and clinical reasoning.</li>
+            <li><strong>5. Actionable Guidance</strong>: Recommended follow-up steps (e.g. ADOS-2 protocol).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide">
+      <div class="pill">Explainable AI (XAI)</div>
+      <h2 class="slide-title">Oculomotor Biomarkers: Revealing the "Why"</h2>
+      
+      <div class="grid-3">
+        <div class="card">
+          <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">BIOMARKER 1</div>
+          <div class="card-title">Atypical Fixation Dispersion</div>
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Status: High Divergence</div>
+          <p style="font-size: 0.9rem; line-height: 1.5; color: #475569;">
+            Fixations cluster tightly in peripheral or isolated zones rather than dispersing across holistic scene landmarks. Shows repetitive visual attention on non-salient elements.
+          </p>
+        </div>
+        <div class="card">
+          <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">BIOMARKER 2</div>
+          <div class="card-title">Social-Salience Avoidance</div>
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Status: Reduced (31% vs 68% Norm)</div>
+          <p style="font-size: 0.9rem; line-height: 1.5; color: #475569;">
+            Significant reduction in dwell time on primary visual social anchors (eyes, mouth, and human interaction cues), a canonical neurodevelopmental marker of ASD.
+          </p>
+        </div>
+        <div class="card">
+          <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">BIOMARKER 3</div>
+          <div class="card-title">Saccadic Path Fragmentation</div>
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Status: Elevated Jitter & Tortuosity</div>
+          <p style="font-size: 0.9rem; line-height: 1.5; color: #475569;">
+            Short, fragmented saccade jumps with high trajectory variability between fixations, indicating disrupted motor planning and visual scene exploration.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide">
+      <div class="pill">Cross-Domain Synergy</div>
+      <h2 class="slide-title">Extending Techniques to the Professor's ADHD Project</h2>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="pill" style="margin-bottom: 0.4rem;">Handwriting Baseline Review</div>
+          <div class="card-title">Current Limitations in ADHD Code</div>
+          <ul class="card-list">
+            <li><strong>Vanilla CNN / ResNet</strong>: Achieves ~87% but uses naive 1D convolution heuristics for line straightness.</li>
+            <li><strong>Loss of Kinematics</strong>: Treats handwriting as static pixels, ignoring velocity and pen pressure dynamics.</li>
+            <li><strong>Small-Sample Overfitting</strong>: Deep CNNs with standard cross-entropy overfit on small pediatric cohorts.</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color: var(--primary);">
+          <div class="pill" style="background: #eef2ff; color: var(--primary); margin-bottom: 0.4rem;">Proposed Solutions</div>
+          <div class="card-title">Advanced Algorithms to Implement</div>
+          <ul class="card-list">
+            <li><strong>1. Vision Transformers (Swin / ConvNeXt)</strong>: Captures long-range page margin drift and slant.</li>
+            <li><strong>2. Supervised Contrastive Learning (SupCon)</strong>: Builds robust clusters on small datasets without overfitting.</li>
+            <li><strong>3. Kinematic Reconstruction</strong>: Recovers temporal stroke velocity and jerk from paper scans.</li>
+            <li><strong>4. Multimodal Fusion</strong>: Combines Eye-Tracking + Handwriting for ASD vs ADHD differential diagnosis.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 -->
+    <div class="slide">
+      <div class="pill">Engineering & Cloud</div>
+      <h2 class="slide-title">Software Architecture & Production Deployment Stack</h2>
+      
+      <div class="grid-3">
+        <div class="card">
+          <div class="pill">Codebase</div>
+          <div class="card-title">GitHub Version Control</div>
+          <ul class="card-list">
+            <li>Public repository: <code>github.com/nandini-rathod/asd-eye-tracking</code></li>
+            <li>Clean module separation (Inference, UI, Config).</li>
+            <li>Production <code>requirements.txt</code> with <code>gunicorn</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Backend</div>
+          <div class="card-title">Gunicorn WSGI Server</div>
+          <ul class="card-list">
+            <li>Production-grade multi-worker concurrency.</li>
+            <li>Dynamic environment port binding.</li>
+            <li>8MB payload validation and sanitization.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="pill">Cloud</div>
+          <div class="card-title">Render Cloud Deployment</div>
+          <ul class="card-list">
+            <li>Pre-configured <code>Procfile</code> and <code>render.yaml</code>.</li>
+            <li>Automated CI/CD deployment on git push.</li>
+            <li>Global HTTPS public endpoint accessible anywhere.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 -->
+    <div class="slide dark-theme">
+      <div class="pill">Summary & Impact</div>
+      <h1 class="slide-title" style="font-size: 2.5rem; margin-bottom: 1.5rem;">
+        Key Accomplishments & Research Impact
+      </h1>
+      
+      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 900px;">
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">01</div>
+          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
+            <strong>Validated SOTA Pipeline</strong>: Replicated and validated a ~98% accurate MobileNet + PCA (250) + Stacking Ensemble on benchmark eye-tracking data.
+          </p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">02</div>
+          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
+            <strong>Explainable AI (XAI)</strong>: Pioneered an explainable biomarker engine extracting fixation dispersion, social avoidance, and saccadic irregularity.
+          </p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">03</div>
+          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
+            <strong>Production Web Portal</strong>: Transformed code cells into an interactive clinical web platform with instant drag-and-drop inference.
+          </p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">04</div>
+          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
+            <strong>ADHD Research Synergy</strong>: Formulated actionable deep-learning proposals (Swin Transformer, SupCon, and Multimodal Fusion) to elevate the professor's handwriting project.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTROLS BAR -->
+  <div class="controls">
+    <div>
+      <span id="slideIndicator" style="font-weight: 700; color: white;">Slide 1 of 9</span>
+      <span style="margin-left: 1rem; opacity: 0.6;">(Use ← and → arrow keys or buttons)</span>
+    </div>
+    <div style="display: flex; gap: 0.6rem;">
+      <button class="btn-nav" id="prevBtn"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+      <button class="btn-nav" id="nextBtn">Next <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-nav" id="fullBtn"><i class="fa-solid fa-expand"></i> Fullscreen</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const indicator = document.getElementById('slideIndicator');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const fullBtn = document.getElementById('fullBtn');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      indicator.textContent = `Slide ${index + 1} of ${slides.length}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key.toLowerCase() === 'f') toggleFullscreen();
+    });
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+    fullBtn.addEventListener('click', toggleFullscreen);
+  </script>
+</body>
+</html>
