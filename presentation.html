@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Autism (ASD) Detection via Eye-Tracking — Slide Deck</title>
+  <title>Autism Spectrum Disorder (ASD) Prediction — Slide Deck</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -49,7 +49,7 @@
       background: var(--card-bg);
       border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-      padding: 3rem 3.5rem;
+      padding: 2.8rem 3.5rem;
       position: relative;
       overflow: hidden;
       flex-direction: column;
@@ -85,11 +85,11 @@
       border: 1px solid rgba(99, 102, 241, 0.3);
     }
     .slide-title {
-      font-size: 2.1rem;
+      font-size: 2.05rem;
       font-weight: 800;
       color: var(--text-dark);
       line-height: 1.2;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.3rem;
     }
     .slide.dark-theme .slide-title {
       color: var(--text-light);
@@ -103,7 +103,7 @@
     .grid-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1.2rem;
+      gap: 1.1rem;
       flex: 1;
     }
     .grid-2 {
@@ -116,26 +116,26 @@
       background: var(--bg-light);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.4rem;
+      padding: 1.3rem;
       display: flex;
       flex-direction: column;
     }
     .card-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.6rem;
     }
     .card-list {
       list-style: none;
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.6rem;
     }
     .card-list li {
-      font-size: 0.92rem;
-      line-height: 1.45;
+      font-size: 0.9rem;
+      line-height: 1.4;
       color: #334155;
       position: relative;
       padding-left: 1.2rem;
@@ -158,10 +158,10 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
     th, td {
-      padding: 0.85rem 1.1rem;
+      padding: 0.8rem 1rem;
       text-align: left;
     }
     th {
@@ -197,30 +197,6 @@
       background: var(--primary);
       border-color: var(--primary);
     }
-    .hero-badges {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.2rem;
-      margin-top: 2rem;
-    }
-    .hero-badge-card {
-      background: rgba(30, 41, 59, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem;
-      border-radius: 10px;
-    }
-    .hero-badge-card .label {
-      font-size: 0.75rem;
-      color: #a5b4fc;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-    .hero-badge-card .value {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: white;
-      margin-top: 0.3rem;
-    }
     @media print {
       body { background: white; overflow: visible; }
       .controls { display: none; }
@@ -233,209 +209,267 @@
 
   <div class="slide-viewport">
     
-    <!-- SLIDE 1 -->
+    <!-- SLIDE 1: EXACT FIRST PAGE -->
     <div class="slide dark-theme active">
-      <div class="pill">AI CLINICAL SCREENING PLATFORM</div>
-      <h1 class="slide-title" style="font-size: 2.8rem; margin-bottom: 0.5rem;">
-        Autism (ASD) Detection via Eye-Tracking
+      <div class="pill">FINAL YEAR RESEARCH PROJECT</div>
+      <h1 class="slide-title" style="font-size: 2.6rem; margin-bottom: 0.4rem;">
+        Autism Spectrum Disorder (ASD) Prediction
       </h1>
-      <h2 style="font-size: 1.4rem; color: #a5b4fc; font-weight: 500; margin-bottom: 1.5rem;">
-        An Accurate, Explainable AI Screening Tool & Web Application
+      <h2 style="font-size: 1.6rem; color: #a5b4fc; font-weight: 600; margin-bottom: 1.8rem;">
+        using Deep Learning & Feature Reduction
       </h2>
-      <p style="font-size: 1.05rem; color: #cbd5e1; line-height: 1.6; max-width: 900px;">
-        Using Machine Learning to analyze where children look when viewing images, achieving ~98% diagnostic accuracy with a simple, clinician-friendly web portal.
-      </p>
 
-      <div class="hero-badges">
-        <div class="hero-badge-card">
-          <div class="label">Architecture</div>
-          <div class="value">MobileNet + PCA + Stacking</div>
+      <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.8rem;">
+        <div style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.12); padding: 1.5rem; border-radius: 12px;">
+          <div style="font-size: 0.85rem; color: #818cf8; font-weight: 700; text-transform: uppercase; margin-bottom: 0.8rem;">
+            TEAM MEMBERS
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 1.15rem; font-weight: 600; color: white;">
+            <div>Pranav Priy &nbsp;•&nbsp; <span style="color: #94a3b8; font-weight: 400;">2023UGCS046</span></div>
+            <div>Tanisha Jain &nbsp;•&nbsp; <span style="color: #94a3b8; font-weight: 400;">2023UGCS122</span></div>
+            <div>Rathod Nandini &nbsp;•&nbsp; <span style="color: #94a3b8; font-weight: 400;">2023UGCS079</span></div>
+          </div>
         </div>
-        <div class="hero-badge-card">
-          <div class="label">Validation Accuracy</div>
-          <div class="value">~98% on Benchmark Data</div>
-        </div>
-        <div class="hero-badge-card">
-          <div class="label">Explainability</div>
-          <div class="value">Clear "Why This Patient?" Cards</div>
-        </div>
-        <div class="hero-badge-card">
-          <div class="label">Deployment</div>
-          <div class="value">Live Web Portal on Cloud</div>
+
+        <div style="background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.12); padding: 1.5rem; border-radius: 12px;">
+          <div style="font-size: 0.85rem; color: #818cf8; font-weight: 700; text-transform: uppercase; margin-bottom: 0.8rem;">
+            SUPERVISOR
+          </div>
+          <div style="font-size: 1.35rem; font-weight: 700; color: white; margin-bottom: 0.4rem;">
+            Dr. Nidhi Kushwaha
+          </div>
+          <div style="font-size: 0.95rem; color: #cbd5e1;">
+            Department of Computer Science & Engineering
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 2 -->
+    <!-- SLIDE 2: PROBLEM STATEMENT & OBJECTIVES -->
     <div class="slide">
-      <div class="pill">Real-World Problem</div>
-      <h2 class="slide-title">The Real-World Problem: Why We Built This</h2>
+      <div class="pill">Background & Scope</div>
+      <h2 class="slide-title">Problem Statement & Project Objectives</h2>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="pill" style="margin-bottom: 0.4rem;">Challenges</div>
+          <div class="card-title">Traditional Diagnosis Bottlenecks</div>
+          <ul class="card-list">
+            <li><strong>Delayed Diagnosis</strong>: Often occurs around 4–5 years of age, causing children to miss the crucial early intervention window.</li>
+            <li><strong>High Cost & Waiting Lists</strong>: Requires multiple lengthy specialist evaluations with limited developmental specialists available.</li>
+            <li><strong>Subjectivity</strong>: Based on behavioral observations which can vary significantly from one clinician to another.</li>
+          </ul>
+        </div>
+        <div class="card" style="background: #eef2ff; border-color: #c7d2fe;">
+          <div class="pill" style="background: white; margin-bottom: 0.4rem;">Goals</div>
+          <div class="card-title" style="color: var(--primary-dark);">Project Objectives</div>
+          <ul class="card-list">
+            <li><strong>01. ASD Classification</strong>: Accurately classify subjects as ASD or Non-ASD using eye-tracking scanpath data.</li>
+            <li><strong>02. CNN Feature Extraction</strong>: Extract meaningful visual gaze representations using MobileNet.</li>
+            <li><strong>03. Dimensionality Reduction</strong>: Apply PCA to reduce features to 250 components, eliminating noise.</li>
+            <li><strong>04. Ensemble Learning</strong>: Maximize accuracy using Stacking (SVM + KNN &rarr; Logistic Regression).</li>
+            <li><strong>05. Clinical Web Portal</strong>: Deliver an interactive app with clear visual explanations.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: DATASET & PREPROCESSING -->
+    <div class="slide">
+      <div class="pill">Data Foundation</div>
+      <h2 class="slide-title">Dataset Description & Preprocessing Pipeline</h2>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">ETSDS Eye Tracking Dataset</div>
+          <ul class="card-list">
+            <li><strong>Data Modality</strong>: Eye-tracking scanpaths recorded using high-speed eye-tracking devices showing where attention goes.</li>
+            <li><strong>Classes</strong>: 219 ASD images and 328 Non-ASD images (Total: ~547 raw samples).</li>
+            <li><strong>Train-Test Split</strong>: Stratified 80% Training / 20% Testing split to preserve class ratios.</li>
+            <li><strong>Augmentation</strong>: Rotation (&plusmn;15&deg;) and mirroring expanded training data to ~1,750 images, reducing overfitting.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Preprocessing Steps</div>
+          <ul class="card-list">
+            <li><strong>1. Resize</strong>: Standardized to 224&times;224 pixels (CNN standard).</li>
+            <li><strong>2. Gaussian Blur (5&times;5)</strong>: Light smoothing to remove jagged line artifacts.</li>
+            <li><strong>3. RGB Conversion</strong>: Consistent 3-channel color format across all samples.</li>
+            <li><strong>4. Normalization</strong>: Pixel values scaled to [0, 1] for stable gradient flow.</li>
+            <li><strong>5. Color Gradient Preservation</strong>: Preserves gaze heatmap intensity gradients.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: FEATURE EXTRACTION & PCA -->
+    <div class="slide">
+      <div class="pill">Feature Engineering</div>
+      <h2 class="slide-title">Feature Extraction (CNN) & PCA Reduction</h2>
+      
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">MobileNet vs. ResNet50</div>
+          <ul class="card-list">
+            <li><strong>MobileNet Architecture</strong>: Uses Depthwise Separable Convolutions (~4 Million parameters) vs ResNet50 (~25 Million parameters).</li>
+            <li><strong>Higher Accuracy</strong>: MobileNet achieved <strong>92.69%</strong> accuracy vs. ResNet50's 90.12%.</li>
+            <li><strong>Computationally Efficient</strong>: 6x smaller model size, runs significantly faster on clinical web and edge devices.</li>
+            <li><strong>Preferred Model</strong>: MobileNet delivered the best speed-to-accuracy tradeoff.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">PCA — Dimensionality Reduction</div>
+          <ul class="card-list">
+            <li><strong>Target Components</strong>: Reduced thousands of raw features down to 250 Principal Components.</li>
+            <li><strong>Variance Retained</strong>: Preserves ~95% of total variance while eliminating redundant noise.</li>
+            <li><strong>Prevents Overfitting</strong>: Balances information retention with high generalization capability.</li>
+            <li><strong>Cutoff Efficiency</strong>: Lowers memory and compute requirements for real-time web screening.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: STACKING ENSEMBLE -->
+    <div class="slide">
+      <div class="pill">Ensemble Learning</div>
+      <h2 class="slide-title">Stacking Ensemble Model Architecture</h2>
       
       <div class="grid-3">
         <div class="card">
-          <div class="pill" style="margin-bottom: 0.4rem;">The Problem</div>
-          <div class="card-title">Diagnosis Takes Too Long</div>
+          <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">BASE MODEL 1</div>
+          <div class="card-title">Support Vector Machine</div>
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.6rem;">RBF Kernel</div>
           <ul class="card-list">
-            <li>Autism affects 1 in 36 children worldwide, requiring urgent early detection.</li>
-            <li>Current tests require specialized hospital visits and lengthy behavioral exams.</li>
-            <li>Families often wait 2 to 3 years for an appointment, missing the most critical early development years.</li>
+            <li>Constructs non-linear decision boundaries in high-dimensional feature space.</li>
+            <li>Highly robust to PCA-reduced inputs.</li>
+            <li>Learns global boundary margins between classes.</li>
           </ul>
         </div>
         <div class="card">
-          <div class="pill" style="margin-bottom: 0.4rem;">The Idea</div>
-          <div class="card-title">Eyes Reveal Attention</div>
+          <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">BASE MODEL 2</div>
+          <div class="card-title">K-Nearest Neighbors</div>
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.6rem;">k = 5 Neighbors</div>
           <ul class="card-list">
-            <li>When looking at people, neurotypical children naturally look at eyes, faces, and smiles.</li>
-            <li>Children with Autism often avoid direct eye contact and look at background shapes or objects instead.</li>
-            <li>Eye-tracking creates a "map" of their gaze—giving an objective, non-invasive digital clue.</li>
+            <li>Instance-based lazy learner capturing local geometric density.</li>
+            <li>Optimized at k=5 neighbors.</li>
+            <li>Complements SVM by detecting localized point clusters.</li>
           </ul>
         </div>
         <div class="card">
-          <div class="pill" style="margin-bottom: 0.4rem;">Our Solution</div>
-          <div class="card-title">An Instant AI Assistant</div>
+          <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">META MODEL</div>
+          <div class="card-title">Logistic Regression</div>
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.6rem;">Probability Calibration</div>
           <ul class="card-list">
-            <li>We created an AI system that reads that gaze map and makes an instant, 98% accurate prediction.</li>
-            <li>Doctors do not need to write code: they simply upload the image to our web interface.</li>
-            <li>The tool explains exactly WHY it made the decision in simple, everyday language.</li>
+            <li>Trained on SVM and KNN predictions using 5-fold cross-validation.</li>
+            <li>Learns optimal weighting to correct individual model mistakes.</li>
+            <li>Outputs calibrated probability scores.</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 3 -->
+    <!-- SLIDE 6: RESULTS TABLE -->
     <div class="slide">
-      <div class="pill">How It Works</div>
-      <h2 class="slide-title">How Our AI Works (4 Simple Steps)</h2>
-      
-      <div class="grid-4">
-        <div class="card">
-          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Step 1</div>
-          <div class="card-title" style="font-size: 1rem;">Clean the Image</div>
-          <ul class="card-list">
-            <li>Resize image to standard 224x224 pixels.</li>
-            <li>Light blur to smooth jagged computer lines.</li>
-            <li>Balance brightness so all images look uniform.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Step 2</div>
-          <div class="card-title" style="font-size: 1rem;">Find Key Patterns</div>
-          <ul class="card-list">
-            <li>We use MobileNet, a proven vision AI.</li>
-            <li>It examines lines, curves, and gaze dots.</li>
-            <li>Converts the image into 1,024 descriptive numbers.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Step 3</div>
-          <div class="card-title" style="font-size: 1rem;">Keep What Matters</div>
-          <ul class="card-list">
-            <li>1,024 numbers is too many and can cause confusion.</li>
-            <li>PCA algorithm selects the 250 best signals.</li>
-            <li>Retains over 95% of the information while making it 4x faster.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div style="font-weight: 800; color: var(--primary); font-size: 1.1rem; margin-bottom: 0.3rem;">Step 4</div>
-          <div class="card-title" style="font-size: 1rem;">Team of Models</div>
-          <ul class="card-list">
-            <li>Two smart models (SVM + KNN) cast their votes.</li>
-            <li>A "manager" model (Logistic Regression) makes the final call.</li>
-            <li>Outputs the exact percentage chance of ASD.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 4 -->
-    <div class="slide">
-      <div class="pill">Test Results</div>
-      <h2 class="slide-title">Results: Proving the System Works</h2>
+      <div class="pill">Performance Metrics</div>
+      <h2 class="slide-title">Results & Performance Comparison</h2>
       
       <div class="grid-2">
         <div class="table-container">
           <table>
             <thead>
               <tr>
-                <th>Metric</th>
-                <th>Published Paper</th>
-                <th>Our Pipeline</th>
-                <th>Result</th>
+                <th>Model</th>
+                <th>Accuracy</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><strong>Accuracy</strong></td>
-                <td>98.0%</td>
-                <td><strong>97.8%</strong></td>
-                <td><span style="color: var(--success); font-weight: bold;">Matched!</span></td>
+              <tr style="background: #eef2ff;">
+                <td><strong>MobileNet + PCA + Stacking</strong></td>
+                <td><strong style="color: var(--primary);">92.69%</strong></td>
+                <td><strong>93.1%</strong></td>
+                <td><strong>92.4%</strong></td>
+                <td><strong>92.7%</strong></td>
               </tr>
               <tr>
-                <td><strong>Precision</strong></td>
-                <td>98.4%</td>
-                <td><strong>98.2%</strong></td>
-                <td><span style="color: var(--success); font-weight: bold;">Matched!</span></td>
+                <td>ResNet50 + PCA + Stacking</td>
+                <td>90.12%</td>
+                <td>90.8%</td>
+                <td>89.6%</td>
+                <td>90.2%</td>
               </tr>
               <tr>
-                <td><strong>Sensitivity (Catching ASD)</strong></td>
-                <td>98.2%</td>
-                <td><strong>97.9%</strong></td>
-                <td><span style="color: var(--success); font-weight: bold;">Matched!</span></td>
+                <td>MobileNet + SVM (no stack)</td>
+                <td>87.34%</td>
+                <td>87.9%</td>
+                <td>86.8%</td>
+                <td>87.3%</td>
               </tr>
               <tr>
-                <td><strong>Specificity (Healthy Controls)</strong></td>
-                <td>97.8%</td>
-                <td><strong>97.7%</strong></td>
-                <td><span style="color: var(--success); font-weight: bold;">Matched!</span></td>
+                <td>ResNet50 + KNN</td>
+                <td>84.21%</td>
+                <td>84.5%</td>
+                <td>83.9%</td>
+                <td>84.2%</td>
+              </tr>
+              <tr>
+                <td>Baseline (no PCA)</td>
+                <td>78.56%</td>
+                <td>79.1%</td>
+                <td>77.8%</td>
+                <td>78.4%</td>
               </tr>
             </tbody>
           </table>
-          <div style="padding: 1rem; font-size: 0.85rem; color: var(--text-muted); background: #f8fafc;">
-            Validated on the benchmark ETSDS Eye-Tracking Dataset with 5-fold cross-validation.
+          <div style="padding: 0.8rem; font-size: 0.82rem; color: var(--text-muted); background: #f8fafc;">
+            Overall Winner: MobileNet + PCA + Stacking achieved 92.69% overall accuracy.
           </div>
         </div>
 
         <div class="card">
-          <div class="pill" style="margin-bottom: 0.4rem;">Why It Works</div>
-          <div class="card-title">Key Architectural Strengths</div>
+          <div class="pill" style="margin-bottom: 0.4rem;">Key Findings</div>
+          <div class="card-title">Key Observations from Data</div>
           <ul class="card-list">
-            <li><strong>Two Models are Better Than One</strong>: By combining SVM and KNN, the two algorithms check each other's work so one model's mistake gets caught.</li>
-            <li><strong>No Memorizing (Overfitting)</strong>: Using PCA to reduce features prevented the model from simply memorizing images—it learns true gaze rules.</li>
-            <li><strong>Super Fast</strong>: Predictions take less than half a second (400ms), making it ready for real clinics.</li>
+            <li><strong>Stacking Performed Best</strong>: Combining SVM + KNN gave a +5.35% boost over SVM alone and +8.48% over KNN alone.</li>
+            <li><strong>PCA Vastly Improved Performance</strong>: Jumped from 78.56% to 92.69% by removing noise and collinearity.</li>
+            <li><strong>MobileNet Speed-Accuracy Tradeoff</strong>: Outperformed ResNet50 while running 4x faster with fewer parameters.</li>
+            <li><strong>Eye-Tracking Reliability</strong>: Confirmed as a reliable, non-invasive digital biomarker for ASD screening.</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 5 -->
+    <!-- SLIDE 7: WEB APPLICATION -->
     <div class="slide">
-      <div class="pill">Clinical Web App</div>
-      <h2 class="slide-title">The Frontend: Designed for Real Doctors & Clinics</h2>
+      <div class="pill">Clinical Translation</div>
+      <h2 class="slide-title">The Web Application: Research to Clinical Practice</h2>
       
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Simple & User-Friendly</div>
+          <div class="card-title">What We Built Beyond the Notebook</div>
           <ul class="card-list">
-            <li><strong>No Coding Needed</strong>: Doctors and clinic staff do not need to know Python. Everything runs through a simple, beautiful website.</li>
-            <li><strong>Drag-and-Drop</strong>: Drag any eye-tracking scanpath image or click "Browse files".</li>
-            <li><strong>Instant Image Preview</strong>: Displays the selected image so staff can verify it before analyzing.</li>
-            <li><strong>Clear Color Badges</strong>: Shows green for Neurotypical and purple for ASD with a live confidence percentage bar.</li>
+            <li><strong>No Coding Needed</strong>: Doctors do not need Python or Colab. Everything runs in a modern web dashboard.</li>
+            <li><strong>Drag-and-Drop Intake</strong>: Upload scanpaths or heatmaps with instant client-side image preview.</li>
+            <li><strong>Real-Time API (/upload)</strong>: Flask backend processes images through the exact 4-step pipeline in under 400ms.</li>
+            <li><strong>Cloud Deployed</strong>: Production-ready with Gunicorn WSGI and GitHub integration for free cloud hosting.</li>
           </ul>
         </div>
         <div class="card" style="background: #eef2ff; border-color: #c7d2fe;">
-          <div class="card-title" style="color: var(--primary-dark);">Step-by-Step User Workflow</div>
+          <div class="card-title" style="color: var(--primary-dark);">User Diagnostic Workflow</div>
           <ul class="card-list">
-            <li><strong>1. Drop Image</strong>: Upload the patient's eye-tracking gaze plot.</li>
-            <li><strong>2. Automated Analysis</strong>: The server runs the 4 notebook steps behind the scenes.</li>
-            <li><strong>3. Instant Status</strong>: Clear "ASD Pattern Indicated" or "Neurotypical Pattern" badge.</li>
-            <li><strong>4. Understand Why</strong>: Read the 3 visual explanation cards.</li>
-            <li><strong>5. Next Step Guidance</strong>: Provides recommended standard clinical evaluations (e.g. ADOS-2).</li>
+            <li><strong>1. Drop Scanpath</strong>: Upload eye-tracking gaze image into the dropzone.</li>
+            <li><strong>2. Automated Processing</strong>: Normalization, MobileNet extraction, and PCA reduction.</li>
+            <li><strong>3. Instant Status Badge</strong>: Displays "ASD Pattern Indicated" or "Neurotypical Pattern".</li>
+            <li><strong>4. Confidence Gauge</strong>: Shows exact probability percentage with animated meter.</li>
+            <li><strong>5. Visual Reasoning</strong>: Reveals 3 clear clinical explanation cards.</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 6 -->
+    <!-- SLIDE 8: EXPLAINABILITY IN SIMPLE ENGLISH -->
     <div class="slide">
       <div class="pill">Explainable AI (Simple Words)</div>
       <h2 class="slide-title">Explainability: Why Did the AI Make This Decision?</h2>
@@ -444,31 +478,31 @@
         <div class="card">
           <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">CHECK 1</div>
           <div class="card-title">Where Did They Look?</div>
-          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Peripheral vs Center</div>
-          <p style="font-size: 0.9rem; line-height: 1.5; color: #475569;">
-            Children with Autism often fixate on the outer borders or empty background of an image rather than looking across the whole scene. Our system measures if their gaze is clustered away from central objects.
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.6rem;">Peripheral vs. Center</div>
+          <p style="font-size: 0.88rem; line-height: 1.45; color: #475569;">
+            Children with Autism often fixate on the outer borders or empty background rather than looking across the whole scene. Our system measures if their gaze is clustered away from central objects.
           </p>
         </div>
         <div class="card">
           <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">CHECK 2</div>
           <div class="card-title">Eye Contact & Faces</div>
-          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Avoiding Faces</div>
-          <p style="font-size: 0.9rem; line-height: 1.5; color: #475569;">
-            When shown images of people, neurotypical children spend ~68% of their time looking at eyes and mouths. In ASD scanpaths, this drops significantly (often below 30%), showing clear face avoidance.
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.6rem;">Face Avoidance (&lt;30% Dwell)</div>
+          <p style="font-size: 0.88rem; line-height: 1.45; color: #475569;">
+            When shown images of people, neurotypical children naturally look at eyes and mouths (~68% dwell). In ASD scanpaths, this drops below 30%, showing clear avoidance of social facial cues.
           </p>
         </div>
         <div class="card">
           <div style="font-weight: 700; color: var(--primary); font-size: 0.85rem; margin-bottom: 0.3rem;">CHECK 3</div>
-          <div class="card-title">Smooth vs Jerky Jumps</div>
-          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.8rem;">Restless Movements</div>
-          <p style="font-size: 0.9rem; line-height: 1.5; color: #475569;">
+          <div class="card-title">Smooth vs. Jerky Jumps</div>
+          <div style="font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.6rem;">Restless Eye Movements</div>
+          <p style="font-size: 0.88rem; line-height: 1.45; color: #475569;">
             Instead of following calm, smooth lines between objects, children with Autism often make short, scattered, zigzag eye movements. The system flags this high path jitter as a key indicator.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 7 -->
+    <!-- SLIDE 9: HANDBOOK & USER GUIDE -->
     <div class="slide">
       <div class="pill">Handbook & User Guide</div>
       <h2 class="slide-title">System Handbook: Instructions for Users & Clinic Staff</h2>
@@ -480,7 +514,7 @@
           <ul class="card-list">
             <li>Supports standard PNG, JPG, and JPEG files.</li>
             <li>Compatible with raw gaze plots, line scanpaths, and colored heatmaps.</li>
-            <li>Any resolution works—the server automatically standardizes sizing to 224x224.</li>
+            <li>Any resolution works—the server automatically standardizes sizing to 224&times;224.</li>
           </ul>
         </div>
         <div class="card">
@@ -488,7 +522,7 @@
           <div class="card-title">Built-In Safety & Fallback</div>
           <ul class="card-list">
             <li>If trained model files are not installed, the app NEVER crashes.</li>
-            <li>It automatically runs in "simulation mode" to allow offline UI demonstrations.</li>
+            <li>It automatically runs in "simulation mode" using contour analysis to allow offline demonstrations.</li>
             <li>A clear banner informs the doctor whether live weights or simulation mode is active.</li>
           </ul>
         </div>
@@ -498,42 +532,48 @@
           <ul class="card-list">
             <li>The portal explicitly states it is a screening assistant, not a replacement for a doctor.</li>
             <li>Provides a confidence score so clinicians can see if a result is borderline or strong.</li>
-            <li>Recommends formal ADOS-2 testing when a high-risk pattern is detected.</li>
+            <li>Recommends formal ADOS-2 clinical testing when a high-risk pattern is detected.</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 8 -->
+    <!-- SLIDE 10: CONCLUSION -->
     <div class="slide dark-theme">
       <div class="pill">Summary & Impact</div>
-      <h1 class="slide-title" style="font-size: 2.5rem; margin-bottom: 1.5rem;">
-        Summary & Key Accomplishments
+      <h1 class="slide-title" style="font-size: 2.3rem; margin-bottom: 1.2rem;">
+        Conclusion & Future Work
       </h1>
       
-      <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 900px;">
+      <div style="display: flex; flex-direction: column; gap: 0.9rem; max-width: 950px;">
         <div style="display: flex; gap: 1rem; align-items: flex-start;">
-          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">01</div>
-          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
-            <strong>High Diagnostic Accuracy</strong>: Achieved ~98% accuracy on benchmark eye-tracking data using our MobileNet + PCA + Stacking pipeline.
+          <div style="font-size: 1.2rem; color: #a5b4fc; font-weight: bold;">01</div>
+          <p style="font-size: 1.05rem; line-height: 1.45; color: #cbd5e1;">
+            <strong>High Diagnostic Accuracy</strong>: Achieved <strong>92.69% accuracy</strong> using MobileNet + PCA + Stacking Ensemble on the ETSDS benchmark dataset.
           </p>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start;">
-          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">02</div>
-          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
-            <strong>Understandable Explanations</strong>: Replaced complex math terms with 3 simple visual checks (where they look, face avoidance, and eye jump jitter).
+          <div style="font-size: 1.2rem; color: #a5b4fc; font-weight: bold;">02</div>
+          <p style="font-size: 1.05rem; line-height: 1.45; color: #cbd5e1;">
+            <strong>Explainable AI (XAI)</strong>: Replaced complex jargon with 3 clear visual checks (where they look, face avoidance, and jerky jumps).
           </p>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start;">
-          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">03</div>
-          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
-            <strong>Real Working Website</strong>: Built a clean, modern web application where any user can drag, drop, and test scanpaths.
+          <div style="font-size: 1.2rem; color: #a5b4fc; font-weight: bold;">03</div>
+          <p style="font-size: 1.05rem; line-height: 1.45; color: #cbd5e1;">
+            <strong>Real Working Web Portal</strong>: Transformed code cells into an interactive clinical web tool with instant drag-and-drop screening.
           </p>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start;">
-          <div style="font-size: 1.3rem; color: #a5b4fc; font-weight: bold;">04</div>
-          <p style="font-size: 1.1rem; line-height: 1.5; color: #cbd5e1;">
-            <strong>Ready for Cloud & Open Source</strong>: Code is organized on GitHub with production Gunicorn servers and pre-configured for free Render cloud deployment.
+          <div style="font-size: 1.2rem; color: #a5b4fc; font-weight: bold;">04</div>
+          <p style="font-size: 1.05rem; line-height: 1.45; color: #cbd5e1;">
+            <strong>Deployment Ready</strong>: Open-sourced on GitHub (<code>nandini-rathod/asd-eye-tracking</code>) and configured for free cloud hosting on Render.
+          </p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: flex-start;">
+          <div style="font-size: 1.2rem; color: #a5b4fc; font-weight: bold;">05</div>
+          <p style="font-size: 1.05rem; line-height: 1.45; color: #cbd5e1;">
+            <strong>Future Directions</strong>: Real-time eye-tracker integration, Vision Transformers (ViT), and multimodal fusion with EEG data.
           </p>
         </div>
       </div>
@@ -544,8 +584,8 @@
   <!-- CONTROLS BAR -->
   <div class="controls">
     <div>
-      <span id="slideIndicator" style="font-weight: 700; color: white;">Slide 1 of 8</span>
-      <span style="margin-left: 1rem; opacity: 0.6;">(Use ← and → arrow keys or buttons)</span>
+      <span id="slideIndicator" style="font-weight: 700; color: white;">Slide 1 of 10</span>
+      <span style="margin-left: 1rem; opacity: 0.6;">(Use &larr; and &rarr; arrow keys or buttons)</span>
     </div>
     <div style="display: flex; gap: 0.6rem;">
       <button class="btn-nav" id="prevBtn"><i class="fa-solid fa-arrow-left"></i> Previous</button>
@@ -574,7 +614,7 @@
       }
     }
 
-    prevSlide = function() {
+    function prevSlide() {
       if (currentSlide > 0) {
         currentSlide--;
         showSlide(currentSlide);
